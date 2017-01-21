@@ -1,38 +1,32 @@
 {
   "intents": [
 
-    // lists the categories we know
     {
       "intent": "ListKnownCategoriesIntent"
     },
 
-    // lists the objects we know the location of, given a category
     {
       "intent": "ListObjectsOfCategoryIntent",
       "slots": [
         {
           "name": "Category",
 
-          // TODO this will change with reference to MongoDB
           "type": "LIST_OF_CATEGORIES"
         }
       ]
     },
 
-    // returns the location of the given object, category isn't required but is recommended
     {
       "intent": "ReturnLocationObjectIntent",
       "slots": [
         {
           "name": "Object",
 
-          // TODO this will change with reference to MongoDB
           "type": "LIST_OF_KITCHEN_OBJECTS"
         },
         {
           "name": "Category",
 
-          // TODO this will change with reference to MongoDB
           "type": "LIST_OF_CATEGORIES"
         }
       ]
