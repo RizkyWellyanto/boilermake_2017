@@ -12,7 +12,24 @@ module.exports = function (router) {
                 if (err || !data) {
                     res.status(404);
                     res.send({
-                        'message': 'Unable to find puck'
+                        'message': 'Unable to find pucks'
+                    });
+                    return;
+                }
+
+                res.status(200);
+                res.send({
+                    'message': 'OK',
+                    data:data
+                });
+            })
+        })
+        .delete(function (req, res) {
+            Puck.deleteAllPucks(function (err, data) {
+                if (err || !data) {
+                    res.status(404);
+                    res.send({
+                        'message': 'Unable to delete pucks'
                     });
                     return;
                 }
@@ -25,9 +42,9 @@ module.exports = function (router) {
             })
         });
 
-    router.route('/puck/:id')
+    router.route('/puck/:pid')
         .get(function (req, res) {
-            Puck.findById(req.params.id, function (err, puck) {
+            Puck.getPuckById(req.params.pid, function (err, puck) {
                 if (err || !puck) {
                     res.status(404);
                     res.send({
@@ -45,7 +62,7 @@ module.exports = function (router) {
             });
         })
         .put(function(req, res){
-            Puck.getPuckById(req.params.id, function (err, puck) {
+            Puck.getPuckById(req.params.pid, function (err, puck) {
                 if (err || !puck) {
                     res.status(404);
                     res.send({
@@ -64,6 +81,7 @@ module.exports = function (router) {
         })
         .post(function(req, res){
             var newPuck = new Puck({
+                pid:req.params.pid,
                 label:req.body.label
             });
             Puck.createPuck(newPuck, function (err, puck) {
@@ -76,7 +94,7 @@ module.exports = function (router) {
             });
         })
         .delete(function (req, res) {
-            Puck.getPuckById(req.params.id, function (err, puck) {
+            Puck.getPuckById(req.params.pid, function (err, puck) {
                 if (err || !puck) {
                     res.status(404);
                     res.send({
@@ -84,7 +102,7 @@ module.exports = function (router) {
                     });
                     return;
                 }
-                Puck.deletePuckById(req.params.id, function (err, puck) {
+                Puck.deletePuckById(req.params.pid, function (err, puck) {
                     if (err || !puck) {
                         res.status(500);
                         res.send({
