@@ -25,12 +25,8 @@
 
 
 /**
- * TODO just here for emphasis
- *
  * This is the basic implementation of Butler Buddy (or whatever name),
- * if any major concerns arise don't feel bad waking me up -> call 630-945-0544
- *
- * TODO just here for emphasis
+ * if any major concerns arise don't feel bad waking me up -> call
  */
 
 
@@ -41,10 +37,17 @@
 
 'use strict';
 
-var AlexaSkill = require('./../../minecraftHelper/src/AlexaSkill'),
-    recipes = require('./../../minecraftHelper/src/recipes');
-
 var APP_ID = undefined; //OPTIONAL: replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
+
+var AlexaSkill = require('./AlexaSkill');
+
+var CATEGORIES = [
+    "kitchen",
+    "bathroom",
+    "living room",
+    "garage",
+    "bedroom"
+]
 
 /**
  * ButlerBuddy is a child of AlexaSkill.
@@ -208,14 +211,14 @@ function getListOfObjectsInCategory(intent, session, response) {
  */
 function getListOfCategories() {
     var listOfCategories = "";
-    for (var category in LIST_OF_CATEGORIES) {
-        listOfCategories += category + ", ";
+    for (var category in CATEGORIES) {
+        listOfCategories += CATEGORIES[category] + ", ";
     }
     return listOfCategories;
 }
 
 
 exports.handler = function (event, context) {
-    var butler = new Butler();
-    butler.execute(event, context);
+    var index = new Butler();
+    index.execute(event, context);
 };
