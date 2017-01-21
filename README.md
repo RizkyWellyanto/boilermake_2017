@@ -4,6 +4,11 @@
     "/"
        GET
            returns index.html
+    "/puck"
+       GET
+           returns all pucks
+       DELTE
+           delete all pucks
     "/puck/:id"
        GET
            get a puck with id
