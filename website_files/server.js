@@ -6,8 +6,7 @@ var app     = express();
  * change the files being statically served.
  * */
 var usePath = __dirname;
-app.use(express.static(usePath), function(req, res, next){
-});
+app.use(express.static(usePath));
 
 /** 
  * Setting up the server port.
