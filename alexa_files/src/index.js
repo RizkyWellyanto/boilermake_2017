@@ -9,29 +9,9 @@
 */
 
 /**
- * This sample shows how to create a Lambda function for handling Alexa Skill requests that:
- *
- * - Custom slot type: demonstrates using custom slot types to handle a finite set of known values
- *
- * Examples:
- * One-shot model:
- *  User: "Alexa, ask Minecraft Helper how to make paper."
- *  Alexa: "(reads back recipe for paper)"
- */
-
-
-
-
-
-
-/**
  * This is the basic implementation of Butler Buddy (or whatever name),
  * if any major concerns arise don't feel bad waking me up -> call
  */
-
-
-
-
 
 
 
@@ -39,8 +19,30 @@
 
 var APP_ID = undefined; //OPTIONAL: replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
 
-var AlexaSkill = require('./AlexaSkill');
+var AlexaSkill = require('./AlexaSkill'),
+    mongoose = require('mongoose');
 
+
+/**
+ * Mongoose database references and calls
+ */
+mongoose.connect('mongodb://elliott:caleb@cluster0-shard-00-00-gnhms.mongodb.net:27017,' +
+    'cluster0-shard-00-01-gnhms.mongodb.net:27017,cluster0-shard-00-02-gnhms.mongodb.net:' +
+    '27017/admin?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    //we are connected!
+});
+
+var objectSchema = mongoose.Schema({
+    name: String
+});
+
+
+
+// TODO remove this hard-coded list as database references are made
 var CATEGORIES = [
     "kitchen",
     "bathroom",
@@ -118,6 +120,19 @@ Butler.prototype.intentHandlers = {
         response.ask(speechOutput, anythingElse);
     },
 
+    "AddObjectsToListIntent": function (intent, session, response) {
+        var speechoutput;
+
+        var objectSlot = intent.slots.Object;
+        var categorySlot = intent.slots.Category;
+        var locationSlot = intent.slots.Location;
+
+        speechoutput = "write this intent dude";
+
+        var anythingElse = "Is there anything else I may find for you?";
+        response.ask(speechoutput, anythingElse);
+    },
+
     // adapted from given intent
     "AMAZON.StopIntent": function (intent, session, response) {
         var speechOutput = "Goodbye, master wayne";
@@ -150,29 +165,14 @@ Butler.prototype.intentHandlers = {
 
 /**
  * Utility functions start here
- * TODO need implementation and documentation
  */
 
 
-/**
- * Must handle no object being provided when prompting ReturnLocationObjectIntent
- *
- * @param intent
- * @param session
- * @param response
- */
 function handleNoObjectProvided(intent, session, response) {
 
 }
 
 
-/**
- * Must handle no category being provided when prompting ReturnLocationObjectIntent
- *
- * @param intent
- * @param session
- * @param response
- */
 function handleNoCategoryProvided(intent, session, response) {
 
 }
@@ -188,27 +188,49 @@ function handleNoCategoryProvided(intent, session, response) {
  * @param response
  */
 function getObjectLocation(intent, session, response) {
+    var speechoutput;
+    var listOfCategories = "";
+    var category = mongoose.model(intent.slots.Category, objectSchema);
+    var object = intent.slots.Object;
 
+    if (object && object.value) {
+        if (category && category.value) {
+
+            category.findOne(object, function (err, object) {
+                if (err) return console.error (err);
+                console.log (object.name);
+            });
+        }
+        else {
+            var items = mongoose.model('Items', objectSchema);
+
+            items.findOne(object, function (err, object) {
+                if (err) return console.error (err);
+                speechoutput = object.location;
+            });
+        }
+    }
+    else {
+        handleNoObjectProvided(intent, session, response);
+    }
 }
 
 
-/**
- *
- * @param intent
- * @param session
- * @param response
- */
 function getListOfObjectsInCategory(intent, session, response) {
+    var category = intent.slots.Category;
 
+    if (category && category.value) {
+        category.find(function (err, items) {
+            if (err) return console.error(err);
+            console.log(items);
+        })
+    }
+    else {
+        handleNoCategoryProvided(intent, session, response);
+    }
 }
 
-/**
- * Returns the list of categories, as it is defined in LIST_OF_CATEGORIES.txt
- *
- * Text file will be replaced with database reference when ready
- *
- * @returns {string}
- */
+
 function getListOfCategories() {
     var listOfCategories = "";
     for (var category in CATEGORIES) {
@@ -216,6 +238,7 @@ function getListOfCategories() {
     }
     return listOfCategories;
 }
+
 
 
 exports.handler = function (event, context) {
