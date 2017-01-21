@@ -23,7 +23,6 @@ import { HeroSearchComponent }  from './hero-search.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule
   ],
   declarations: [

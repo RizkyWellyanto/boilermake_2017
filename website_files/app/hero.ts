@@ -3,9 +3,9 @@ export class Hero {
   name: string;
 }
 
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
+export class Puck {
+    _id: string;
+    pid: string;
+    label: string;
+    __v: number;
+}

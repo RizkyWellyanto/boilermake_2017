@@ -1,9 +1,20 @@
 <h3>Connected Pucks</h3>
 <div class="grid grid-pad">
-  <a *ngFor="let hero of heroes"  [routerLink]="['/detail', hero.id]"  class="col-1-4">
-    <div class="module hero">
-      <h4>{{hero.name}}</h4>
-    </div>
-  </a>
+    <!-- <a *ngFor="let puck of pucks"  class="col-1-5"> -->
+    <table class="center">
+        <tbody>
+            <tr>
+            <a *ngFor="let puck of pucks"  [routerLink]="['/detail', puck.pid]"  class="col-1-4">
+                <div class="module hero">
+                    <!-- <h4>{{hero.name}}</h4> -->
+                    <td>
+                            <h4>Puck #{{puck.pid}}</h4>
+                    </td>
+                    <!-- <h4>{{puck.label}}</h4> -->
+                </div>
+            </a>
+            </tr>
+        </tbody>
+    </table>
 </div>
-<hero-search></hero-search>
+<!-- <hero-search></hero-search> -->

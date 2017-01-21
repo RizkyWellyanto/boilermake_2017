@@ -4,22 +4,45 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Hero } from './hero';
+import { Puck } from './hero';
 
 @Injectable()
 export class HeroService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private heroesUrl = 'api/heroes';  // URL to web api
+  private pucksUrl = 'api/puck';  // URL to web api
+
+  /*This would not work if the in memory api is not enabled */
+  // private heroesUrl = 'api/heroes';  // URL to web api
 
   constructor(private http: Http) { }
 
   getHeroes(): Promise<Hero[]> {
+    console.log("this.heroesUrl", this.heroesUrl);
     return this.http.get(this.heroesUrl)
                .toPromise()
+               // .then(response => console.log(response.json().data))
                .then(response => response.json().data as Hero[])
                .catch(this.handleError);
   }
 
+  getPucks(): Promise<Puck[]> {
+      console.log("this.pucksUrl", this.pucksUrl);
+      return this.http.get(this.pucksUrl)
+                 .toPromise()
+                 .then(response => response.json().data as Puck[])
+                 .catch(this.handleError);
+  }
+
+  getPuck(pid: string): Promise<Puck> {
+      console.log("pid: ", pid);
+      const url = `${this.pucksUrl}/${pid}`;
+      return this.http.get(url)
+                 .toPromise()
+                 .then(response => response.json().data as Puck)
+                 // .then(response => console.log(response.json().data))
+                 .catch(this.handleError);
+  }
 
   getHero(id: number): Promise<Hero> {
     const url = `${this.heroesUrl}/${id}`;
@@ -59,11 +82,3 @@ export class HeroService {
     return Promise.reject(error.message || error);
   }
 }
-
-
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

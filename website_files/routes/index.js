@@ -3,6 +3,9 @@
  */
 
 module.exports = function(app, router){
+    // app.use('/api', require('./home.js')(router));
+    // app.use('/api', require('./puck.js')(router));
+
     app.use('/api', require('./home.js')(router));
     app.use('/api', require('./puck.js')(router));
 };
