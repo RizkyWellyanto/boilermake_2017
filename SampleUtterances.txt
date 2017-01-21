@@ -1,0 +1,158 @@
+ListKnownCategoriesIntent what are the categories you know
+ListKnownCategoriesIntent what are the categories we know
+ListKnownCategoriesIntent what are the categories I know
+ListKnownCategoriesIntent what categories do you know
+ListKnownCategoriesIntent what categories do we know
+ListKnownCategoriesIntent what categories do I know
+ListKnownCategoriesIntent what categories are there
+ListKnownCategoriesIntent what categories exist
+ListKnownCategoriesIntent what rooms do you know
+ListKnownCategoriesIntent what rooms do we know
+ListKnownCategoriesIntent what rooms do I know
+ListKnownCategoriesIntent what are the rooms you know
+ListKnownCategoriesIntent what are the rooms we know
+ListKnownCategoriesIntent what are the rooms I know
+ListKnownCategoriesIntent what rooms are there
+ListKnownCategoriesIntent what rooms exist
+
+ListKnownCategoriesIntent which categories do you know
+ListKnownCategoriesIntent which categories do we know
+ListKnownCategoriesIntent which categories do I know
+ListKnownCategoriesIntent which categories are there
+ListKnownCategoriesIntent which rooms do you know
+ListKnownCategoriesIntent which rooms do we know
+ListKnownCategoriesIntent which rooms do I know
+ListKnownCategoriesIntent which rooms are there
+
+ListKnownCategoriesIntent get categories
+ListKnownCategoriesIntent get the categories
+ListKnownCategoriesIntent get rooms
+ListKnownCategoriesIntent get the rooms
+
+ListKnownCategoriesIntent where can things be
+ListKnownCategoriesIntent where can my things be
+ListKnownCategoriesIntent where can I find my things
+
+ListKnownCategoriesIntent list categories
+ListKnownCategoriesIntent list the categories
+ListKnownCategoriesIntent list all the categories
+ListKnownCategoriesIntent list rooms
+ListKnownCategoriesIntent list the rooms
+ListKnownCategoriesIntent list all the rooms
+
+
+
+ListObjectsOfCategoryIntent get {Category}
+ListObjectsOfCategoryIntent list {Category}
+ListObjectsOfCategoryIntent return {Category}
+ListObjectsOfCategoryIntent get my {Category}
+ListObjectsOfCategoryIntent list my {Category}
+ListObjectsOfCategoryIntent get all of my {Category}
+ListObjectsOfCategoryIntent list all of my {Category}
+
+ListObjectsOfCategoryIntent get objects of {Category}
+ListObjectsOfCategoryIntent get my objects of {Category}
+ListObjectsOfCategoryIntent get all objects of {Category}
+ListObjectsOfCategoryIntent get the objects of {Category}
+ListObjectsOfCategoryIntent get all my objects of {Category}
+ListObjectsOfCategoryIntent get all the objects of {Category}
+ListObjectsOfCategoryIntent get all of my objects of {Category}
+ListObjectsOfCategoryIntent get all of the objects of {Category}
+ListObjectsOfCategoryIntent get objects in {Category}
+ListObjectsOfCategoryIntent get my objects in {Category}
+ListObjectsOfCategoryIntent get all objects in {Category}
+ListObjectsOfCategoryIntent get the objects in {Category}
+ListObjectsOfCategoryIntent get all my objects in {Category}
+ListObjectsOfCategoryIntent get all the objects in {Category}
+ListObjectsOfCategoryIntent get all of my objects in {Category}
+ListObjectsOfCategoryIntent get all of the objects in {Category}
+
+ListObjectsOfCategoryIntent list objects of {Category}
+ListObjectsOfCategoryIntent list my objects of {Category}
+ListObjectsOfCategoryIntent list all objects of {Category}
+ListObjectsOfCategoryIntent list the objects of {Category}
+ListObjectsOfCategoryIntent list all my objects of {Category}
+ListObjectsOfCategoryIntent list all the objects of {Category}
+ListObjectsOfCategoryIntent list all of my objects of {Category}
+ListObjectsOfCategoryIntent list all of the objects of {Category}
+ListObjectsOfCategoryIntent list objects in {Category}
+ListObjectsOfCategoryIntent list my objects in {Category}
+ListObjectsOfCategoryIntent list all objects in {Category}
+ListObjectsOfCategoryIntent list the objects in {Category}
+ListObjectsOfCategoryIntent list all my objects in {Category}
+ListObjectsOfCategoryIntent list all the objects in {Category}
+ListObjectsOfCategoryIntent list all of my objects in {Category}
+ListObjectsOfCategoryIntent list all of the objects in {Category}
+
+ListObjectsOfCategoryIntent get things of {Category}
+ListObjectsOfCategoryIntent get my things of {Category}
+ListObjectsOfCategoryIntent get all things of {Category}
+ListObjectsOfCategoryIntent get the things of {Category}
+ListObjectsOfCategoryIntent get all my things of {Category}
+ListObjectsOfCategoryIntent get all the things of {Category}
+ListObjectsOfCategoryIntent get all of my things of {Category}
+ListObjectsOfCategoryIntent get all of the things of {Category}
+ListObjectsOfCategoryIntent get things in {Category}
+ListObjectsOfCategoryIntent get my things in {Category}
+ListObjectsOfCategoryIntent get all things in {Category}
+ListObjectsOfCategoryIntent get the things in {Category}
+ListObjectsOfCategoryIntent get all my things in {Category}
+ListObjectsOfCategoryIntent get all the things in {Category}
+ListObjectsOfCategoryIntent get all of my things in {Category}
+ListObjectsOfCategoryIntent get all of the things in {Category}
+
+ListObjectsOfCategoryIntent list things of {Category}
+ListObjectsOfCategoryIntent list my things of {Category}
+ListObjectsOfCategoryIntent list all things of {Category}
+ListObjectsOfCategoryIntent list the things of {Category}
+ListObjectsOfCategoryIntent list all my things of {Category}
+ListObjectsOfCategoryIntent list all the things of {Category}
+ListObjectsOfCategoryIntent list all of my things of {Category}
+ListObjectsOfCategoryIntent list all of the things of {Category}
+ListObjectsOfCategoryIntent list things in {Category}
+ListObjectsOfCategoryIntent list my things in {Category}
+ListObjectsOfCategoryIntent list all things in {Category}
+ListObjectsOfCategoryIntent list the things in {Category}
+ListObjectsOfCategoryIntent list all my things in {Category}
+ListObjectsOfCategoryIntent list all the things in {Category}
+ListObjectsOfCategoryIntent list all of my things in {Category}
+ListObjectsOfCategoryIntent list all of the things in {Category}
+
+
+
+ReturnLocationObjectIntent where is {Object}
+ReturnLocationObjectIntent where is my {Object}
+ReturnLocationObjectIntent where is the {Object}
+ReturnLocationObjectIntent where's {Object}
+ReturnLocationObjectIntent where's my {Object}
+ReturnLocationObjectIntent where's the {Object}
+
+ReturnLocationObjectIntent where is {Object} in {Category}
+ReturnLocationObjectIntent where is {Object} in my {Category}
+ReturnLocationObjectIntent where is {Object} in the {Category}
+ReturnLocationObjectIntent where is my {Object} in {Category}
+ReturnLocationObjectIntent where is my {Object} in my {Category}
+ReturnLocationObjectIntent where is my {Object} in the {Category}
+ReturnLocationObjectIntent where is the {Object} in {Category}
+ReturnLocationObjectIntent where is the {Object} in my {Category}
+ReturnLocationObjectIntent where is the {Object} in the {Category}
+
+ReturnLocationObjectIntent where in {Category} is {Object}
+ReturnLocationObjectIntent where in {Category} is my {Object}
+ReturnLocationObjectIntent where in {Category} is the {Object}
+ReturnLocationObjectIntent where in my {Category} is {Object}
+ReturnLocationObjectIntent where in my {Category} is my {Object}
+ReturnLocationObjectIntent where in my {Category} is the {Object}
+ReturnLocationObjectIntent where in the {Category} is {Object}
+ReturnLocationObjectIntent where in the {Category} is my {Object}
+ReturnLocationObjectIntent where in the {Category} is the {Object}
+
+ReturnLocationObjectIntent in {Category} where is {Object}
+ReturnLocationObjectIntent in {Category} where is my {Object}
+ReturnLocationObjectIntent in {Category} where is the {Object}
+ReturnLocationObjectIntent in my {Category} where is {Object}
+ReturnLocationObjectIntent in my {Category} where is my {Object}
+ReturnLocationObjectIntent in my {Category} where is the {Object}
+ReturnLocationObjectIntent in the {Category} where is {Object}
+ReturnLocationObjectIntent in the {Category} where is my {Object}
+ReturnLocationObjectIntent in the {Category} where is the {Object}
