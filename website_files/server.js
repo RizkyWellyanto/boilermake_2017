@@ -1,16 +1,31 @@
-var express = require('express');
-var app     = express();
+var express = require("express");
+var compression = require("compression");
+var bodyParser = require("body-parser");
+var secrets = require("./config/secrets");
+var mongoose = require('mongoose');
+var router = express.Router();
+var app = express();
 
-/* *
- * Edit the usePath variable if you want to
- * change the files being statically served.
- * */
+// db connection
+mongoose.connect(secrets.mongo_connection);
+
+// compression
+app.use(compression());
+
+// parsing req body
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// static paths
 var usePath = __dirname;
 app.use(express.static(usePath));
 
-/**
- * Setting up the server port.
- * */
-var port = process.env.PORT || 3000;
-console.log("Express server running on " + port);
-app.listen(process.env.PORT || port);
+// routes
+require('./routes')(app, router);
+
+// server instance
+var server = app.listen(process.env.PORT || 8080, function (){
+    var host = server.address().address;
+    var port = server.address().port;
+
+    console.log('Server listening at http://%s:%s', host, port);
+});
