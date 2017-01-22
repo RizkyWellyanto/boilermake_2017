@@ -20,8 +20,34 @@
 var APP_ID = undefined; //OPTIONAL: replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
 
 var AlexaSkill = require('./AlexaSkill'),
-    mongoose = require('mongoose');
+    mongoose  = require('mongoose'),
+    http      = require('http');
 
+/*
+ */
+console.log("Before http get.");
+var alfredPuckURL = "http://alfred-the-butler.herokuapp.com/api/puck";
+var req = http.get(alfredPuckURL, function(res) {
+    var statusCode = res.statusCode;
+    console.log("statusCode", statusCode);
+    var rawData = '';
+    /*res.on('data', function(chunk){
+     rawData += chunk;
+     console.log("chunk", chunk)
+     });*/
+
+    /* res.end('end', function(){
+     try{
+     var parsedData = JSON.parse(rawData);
+     console.log(parsedData);
+     } catch(e){
+     console.log(e.message);
+     console.log("res.statusCode in catch", res.statusCode)
+     }
+     });*/
+});
+
+//console.log("req", req);
 var PuckSchema = new mongoose.Schema({
     pid: String,
     label: String
@@ -32,23 +58,6 @@ var Puck = mongoose.model('Puck', PuckSchema);
 var hello = function (callback) {
     Puck.find({}, callback);
 };
-
-
-
-
-/**
- * Mongoose database references and calls
- */
-mongoose.connect("mongodb://LASTNAME:FIRSTNAME@cluster0-shard-00-00-gnhms.mongodb.net:27017,cluster0-shard-00-01-gnhms.mongodb.net:27017,cluster0-shard-00-02-gnhms.mongodb.net:27017/admin?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin");
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    //we are connected!
-});
-
-
-
 
 
 // TODO remove this hard-coded list as database references are made
@@ -96,7 +105,7 @@ Butler.prototype.intentHandlers = {
     },
 
     "ListObjectsOfCategoryIntent": function (intent, session, response) {
-        var speechOutput;
+        var speechOutput = "No object, please ask again"; // default case
         var categorySlot = intent.slots.Category;
 
         // this if statement structure is just null checking
@@ -104,16 +113,13 @@ Butler.prototype.intentHandlers = {
             speechOutput = "The list of objects within " + categorySlot +
                 " is as follows, " + getListOfObjectsInCategory(intent, session, response);
         }
-        else {
-            speechOutput = handleNoCategoryProvided(intent, session, response);
-        }
 
         var anythingElse = "Is there anything else I may find for you?";
         response.ask(speechOutput, anythingElse);
     },
 
     "ReturnLocationObjectIntent": function (intent, session, response) {
-        var speechOutput;
+        var speechOutput = "No object, please ask again"; // default case
 
         var objectSlot = intent.slots.Object;
 
@@ -121,36 +127,20 @@ Butler.prototype.intentHandlers = {
         if (objectSlot && objectSlot.value) {
             speechOutput = getObjectLocation(intent, session, response);
         }
-        else {
-            speechOutput = handleNoObjectProvided(intent, session, response);
-        }
 
         var anythingElse = "Is there anything else I may find for you?";
         response.ask(speechOutput, anythingElse);
     },
 
-    "AddObjectsToListIntent": function (intent, session, response) {
-        var speechoutput;
-
-        var objectSlot = intent.slots.Object;
-        var categorySlot = intent.slots.Category;
-        var locationSlot = intent.slots.Location;
-
-        speechoutput = "write this intent dude";
-
-        var anythingElse = "Is there anything else I may find for you?";
-        response.ask(speechoutput, anythingElse);
-    },
-
     // adapted from given intent
     "AMAZON.StopIntent": function (intent, session, response) {
-        var speechOutput = "Goodbye, master wayne";
+        var speechOutput = "Goodbye, mister wayne";
         response.tell(speechOutput);
     },
 
     // adapted from given intent
     "AMAZON.CancelIntent": function (intent, session, response) {
-        var speechOutput = "Goodbye, master wayne.";
+        var speechOutput = "Goodbye, mister wayne.";
         response.tell(speechOutput);
     },
 
@@ -177,16 +167,6 @@ Butler.prototype.intentHandlers = {
  */
 
 
-function handleNoObjectProvided(intent, session, response) {
-
-}
-
-
-function handleNoCategoryProvided(intent, session, response) {
-
-}
-
-
 /**
  * Returns the location of an object, as defined in the database
  *
@@ -197,30 +177,15 @@ function handleNoCategoryProvided(intent, session, response) {
  * @param response
  */
 function getObjectLocation(intent, session, response) {
-    var stringOutput;
-    //var listOfCategories = "";
-    //var category = mongoose.model(intent.slots.Category, objectSchema);
+    var stringOutput = "No object, please ask again"; // default case
     var object = intent.slots.Object;
 
     if (object && object.value) {
-        //if (category && category.value) {
 
+        // TODO this is still fucking up somehow
         hello(function(err, data) {
             stringOutput = String(data[0].label);
         });
-
-        // }
-        // else {
-        //     var items = mongoose.model('Items', objectSchema);
-        //
-        //     items.findOne(object, function (err, object) {
-        //         if (err) return console.error (err);
-        //         stringOutput = object.location;
-        //     });
-        // }
-    }
-    else {
-        handleNoObjectProvided(intent, session, response);
     }
 
     return stringOutput;
@@ -228,14 +193,13 @@ function getObjectLocation(intent, session, response) {
 
 
 function getListOfObjectsInCategory(intent, session, response) {
-    var stringOut = "memes! ";
+    var stringOut = "";
     var category = intent.slots.Category;
 
-    var Kitchen = mongoose.model('Kitchen', objectSchema);
+    // TODO remove hard code
+    var Kitchen   = mongoose.model('Kitchen', objectSchema);
 
     if (category && category.value) {
-
-        // TODO BUG HERE
         Puck.find({}, function (err, items) {
             if (err) return console.error(err);
             for (var step = 0; step < items.length; step ++) {
@@ -244,14 +208,11 @@ function getListOfObjectsInCategory(intent, session, response) {
         })
 
     }
-    else {
-        handleNoCategoryProvided(intent, session, response);
-    }
 
     return stringOut;
 }
 
-
+// TODO remove hard code
 function getListOfCategories() {
     var listOfCategories = "";
     for (var category in CATEGORIES) {
@@ -264,6 +225,7 @@ function getListOfCategories() {
 
 exports.handler = function (event, context) {
     var index = new Butler();
+    console.log("Val Of Index", index);
     index.execute(event, context);
 };
 

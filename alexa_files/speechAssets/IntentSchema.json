@@ -33,24 +33,6 @@
     },
 
     {
-      "intent": "AddObjectsToListIntent",
-      "slots": [
-        {
-          "name": "Object",
-          "type": "LIST_OF_KITCHEN_OBJECTS"
-        },
-        {
-          "name": "Category",
-          "type": "LIST_OF_CATEGORIES"
-        },
-        {
-          "name": "Location",
-          "type": "AMAZON.VARCHAR"
-        }
-      ]
-    },
-
-    {
       "intent": "AMAZON.HelpIntent"
     },
     {
