@@ -9,6 +9,9 @@ var app = express();
 // db connection
 mongoose.connect(secrets.mongo_connection);
 
+/* Temporary log for debugging */
+/* console.log("mongoose", mongoose); */
+
 // compression
 app.use(compression());
 

@@ -18,6 +18,8 @@ module.exports = function (router) {
                 }
 
                 res.status(200);
+                /* Temporary console.log for debugging */
+                // console.log("success", "data", data);
                 res.send({
                     'message': 'OK',
                     data:data
