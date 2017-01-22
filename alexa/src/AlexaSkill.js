@@ -114,8 +114,8 @@ Response.prototype = (function () {
             };
         }
         var returnResult = {
-                version: '1.0',
-                response: alexaResponse
+            version: '1.0',
+            response: alexaResponse
         };
         if (options.session && options.session.attributes) {
             returnResult.sessionAttributes = options.session.attributes;
