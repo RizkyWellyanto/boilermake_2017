@@ -22,6 +22,19 @@ var APP_ID = undefined; //OPTIONAL: replace with 'amzn1.echo-sdk-ams.app.[your-u
 var AlexaSkill = require('./AlexaSkill'),
     mongoose = require('mongoose');
 
+var PuckSchema = new mongoose.Schema({
+    pid: String,
+    label: String
+});
+
+var Puck = mongoose.model('Puck', PuckSchema);
+
+var hello = function (callback) {
+    Puck.find({}, callback);
+};
+
+
+
 
 /**
  * Mongoose database references and calls
@@ -92,7 +105,7 @@ Butler.prototype.intentHandlers = {
                 " is as follows, " + getListOfObjectsInCategory(intent, session, response);
         }
         else {
-            handleNoCategoryProvided(intent, session, response);
+            speechOutput = handleNoCategoryProvided(intent, session, response);
         }
 
         var anythingElse = "Is there anything else I may find for you?";
@@ -109,7 +122,7 @@ Butler.prototype.intentHandlers = {
             speechOutput = getObjectLocation(intent, session, response);
         }
         else {
-            handleNoObjectProvided(intent, session, response);
+            speechOutput = handleNoObjectProvided(intent, session, response);
         }
 
         var anythingElse = "Is there anything else I may find for you?";
@@ -184,45 +197,46 @@ function handleNoCategoryProvided(intent, session, response) {
  * @param response
  */
 function getObjectLocation(intent, session, response) {
-    var speechoutput;
-    var listOfCategories = "";
-    var category = mongoose.model(intent.slots.Category, objectSchema);
+    var stringOutput;
+    //var listOfCategories = "";
+    //var category = mongoose.model(intent.slots.Category, objectSchema);
     var object = intent.slots.Object;
 
     if (object && object.value) {
-        if (category && category.value) {
+        //if (category && category.value) {
 
-            category.findOne(object, function (err, object) {
-                if (err) return console.error (err);
-                console.log (object.name);
-            });
-        }
-        else {
-            var items = mongoose.model('Items', objectSchema);
+        hello(function(err, data) {
+            stringOutput = String(data[0].label);
+        });
 
-            items.findOne(object, function (err, object) {
-                if (err) return console.error (err);
-                speechoutput = object.location;
-            });
-        }
+        // }
+        // else {
+        //     var items = mongoose.model('Items', objectSchema);
+        //
+        //     items.findOne(object, function (err, object) {
+        //         if (err) return console.error (err);
+        //         stringOutput = object.location;
+        //     });
+        // }
     }
     else {
         handleNoObjectProvided(intent, session, response);
     }
+
+    return stringOutput;
 }
 
 
 function getListOfObjectsInCategory(intent, session, response) {
-    var stringOut = "memes";
+    var stringOut = "memes! ";
     var category = intent.slots.Category;
-    var objectSchema = mongoose.Schema({
-        name: String
-    });
+
     var Kitchen = mongoose.model('Kitchen', objectSchema);
 
     if (category && category.value) {
 
-        Kitchen.find({}, function (err, items) {
+        // TODO BUG HERE
+        Puck.find({}, function (err, items) {
             if (err) return console.error(err);
             for (var step = 0; step < items.length; step ++) {
                 stringOut += items[step].name;
@@ -252,3 +266,5 @@ exports.handler = function (event, context) {
     var index = new Butler();
     index.execute(event, context);
 };
+
+
