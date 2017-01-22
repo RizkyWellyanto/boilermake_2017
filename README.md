@@ -7,7 +7,7 @@
     "/puck"
        GET
            returns all pucks
-       DELTE
+       DELETE
            delete all pucks
     "/puck/:id"
        GET
