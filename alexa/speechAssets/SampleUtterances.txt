@@ -5,4 +5,6 @@ SayLocationIntent where's {Object}
 SayLocationIntent where's my {Object}
 SayLocationIntent where can I find {Object}
 SayLocationIntent where can I get {Object}
+SayLocationIntent where can I get my {Object}
+SayLocationIntent where's the {Object}
 SayLocationIntent where to find {Object}
