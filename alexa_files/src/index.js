@@ -134,13 +134,13 @@ Butler.prototype.intentHandlers = {
 
     // adapted from given intent
     "AMAZON.StopIntent": function (intent, session, response) {
-        var speechOutput = "Goodbye, mister wayne";
+        var speechOutput = "Goodbye, master wayne";
         response.tell(speechOutput);
     },
 
     // adapted from given intent
     "AMAZON.CancelIntent": function (intent, session, response) {
-        var speechOutput = "Goodbye, mister wayne.";
+        var speechOutput = "Goodbye, master wayne.";
         response.tell(speechOutput);
     },
 
@@ -177,7 +177,7 @@ Butler.prototype.intentHandlers = {
  * @param response
  */
 function getObjectLocation(intent, session, response) {
-    var stringOutput = "No object, please ask again"; // default case
+    var stringOutput = "No object found, please ask again"; // default case
     var object = intent.slots.Object;
 
     if (object && object.value) {
