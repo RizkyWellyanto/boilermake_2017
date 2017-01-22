@@ -1,12 +1,12 @@
 /**
-    Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
+ Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
 
-        http://aws.amazon.com/apache2.0/
+ http://aws.amazon.com/apache2.0/
 
-    or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
+ or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 /**
  * This is the basic implementation of Butler Buddy (or whatever name),
@@ -26,9 +26,7 @@ var AlexaSkill = require('./AlexaSkill'),
 /**
  * Mongoose database references and calls
  */
-mongoose.connect('mongodb://elliott:caleb@cluster0-shard-00-00-gnhms.mongodb.net:27017,' +
-    'cluster0-shard-00-01-gnhms.mongodb.net:27017,cluster0-shard-00-02-gnhms.mongodb.net:' +
-    '27017/admin?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin');
+mongoose.connect("mongodb://LASTNAME:FIRSTNAME@cluster0-shard-00-00-gnhms.mongodb.net:27017,cluster0-shard-00-01-gnhms.mongodb.net:27017,cluster0-shard-00-02-gnhms.mongodb.net:27017/admin?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin");
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -36,9 +34,7 @@ db.once('open', function() {
     //we are connected!
 });
 
-var objectSchema = mongoose.Schema({
-    name: String
-});
+
 
 
 
@@ -217,17 +213,28 @@ function getObjectLocation(intent, session, response) {
 
 
 function getListOfObjectsInCategory(intent, session, response) {
+    var stringOut = "memes";
     var category = intent.slots.Category;
+    var objectSchema = mongoose.Schema({
+        name: String
+    });
+    var Kitchen = mongoose.model('Kitchen', objectSchema);
 
     if (category && category.value) {
-        category.find(function (err, items) {
+
+        Kitchen.find({}, function (err, items) {
             if (err) return console.error(err);
-            console.log(items);
+            for (var step = 0; step < items.length; step ++) {
+                stringOut += items[step].name;
+            }
         })
+
     }
     else {
         handleNoCategoryProvided(intent, session, response);
     }
+
+    return stringOut;
 }
 
 
