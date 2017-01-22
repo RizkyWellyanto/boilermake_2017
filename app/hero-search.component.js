@@ -49,10 +49,9 @@ var HeroSearchComponent = (function () {
             styleUrls: ['hero-search.component.css'],
             providers: [hero_search_service_1.HeroSearchService]
         }), 
-        __metadata('design:paramtypes', [hero_search_service_1.HeroSearchService, (typeof (_a = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [hero_search_service_1.HeroSearchService, router_1.Router])
     ], HeroSearchComponent);
     return HeroSearchComponent;
-    var _a;
 }());
 exports.HeroSearchComponent = HeroSearchComponent;
 /*

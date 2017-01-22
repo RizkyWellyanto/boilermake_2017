@@ -19,15 +19,20 @@ var HeroDetailComponent = (function () {
         this.route = route;
         this.location = location;
     }
+    //ngOnInit(): void {
+    //  this.route.params
+    //    .switchMap((params: Params) => this.heroService.getHero(+params['id']))
+    //    .subscribe(hero => this.hero = hero);
+    //}
     HeroDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params
-            .switchMap(function (params) { return _this.heroService.getHero(+params['id']); })
-            .subscribe(function (hero) { return _this.hero = hero; });
+            .switchMap(function (params) { return _this.heroService.getPuck(String(+params['id'])); })
+            .subscribe(function (puck) { return _this.puck = puck[0]; });
     };
     HeroDetailComponent.prototype.save = function () {
         var _this = this;
-        this.heroService.update(this.hero)
+        this.heroService.update(this.puck)
             .then(function () { return _this.goBack(); });
     };
     HeroDetailComponent.prototype.goBack = function () {
@@ -40,15 +45,9 @@ var HeroDetailComponent = (function () {
             templateUrl: 'hero-detail.component.html',
             styleUrls: ['hero-detail.component.css']
         }), 
-        __metadata('design:paramtypes', [hero_service_1.HeroService, (typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object, (typeof (_b = typeof common_1.Location !== 'undefined' && common_1.Location) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.ActivatedRoute, common_1.Location])
     ], HeroDetailComponent);
     return HeroDetailComponent;
-    var _a, _b;
 }());
 exports.HeroDetailComponent = HeroDetailComponent;
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/ 
 //# sourceMappingURL=hero-detail.component.js.map

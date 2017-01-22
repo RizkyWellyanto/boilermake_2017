@@ -15,10 +15,28 @@ var HeroService = (function () {
     function HeroService(http) {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.pucksUrl = 'api/puck'; // URL to web api
+        /*This would not work if the in memory api is not enabled */
         this.heroesUrl = 'api/heroes'; // URL to web api
     }
     HeroService.prototype.getHeroes = function () {
+        console.log("this.heroesUrl", this.heroesUrl);
         return this.http.get(this.heroesUrl)
+            .toPromise()
+            .then(function (response) { return response.json().data; })
+            .catch(this.handleError);
+    };
+    HeroService.prototype.getPucks = function () {
+        console.log("this.pucksUrl", this.pucksUrl);
+        return this.http.get(this.pucksUrl)
+            .toPromise()
+            .then(function (response) { return response.json().data; })
+            .catch(this.handleError);
+    };
+    HeroService.prototype.getPuck = function (pid) {
+        console.log("pid getPuck: ", pid);
+        var url = this.pucksUrl + "/" + pid;
+        return this.http.get(url)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
@@ -44,12 +62,28 @@ var HeroService = (function () {
             .then(function (res) { return res.json().data; })
             .catch(this.handleError);
     };
-    HeroService.prototype.update = function (hero) {
-        var url = this.heroesUrl + "/" + hero.id;
+    // update(hero: Hero): Promise<Hero> {
+    //   const url = `${this.heroesUrl}/${hero.id}`;
+    //   return this.http
+    //     .put(url, JSON.stringify(hero), {headers: this.headers})
+    //     .toPromise()
+    //     .then(() => hero)
+    //     .catch(this.handleError);
+    // }
+    HeroService.prototype.update = function (puck) {
+        /* Create new headers and encode them */
+        // let headers = new headers;
+        // headers.append('Content-Type', 'application/json');
+        var bodyString = JSON.stringify({ "label": puck.label });
+        var updateHeaders = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: updateHeaders });
+        var url = this.pucksUrl + "/" + puck.pid;
+        console.log("puck.label in update", puck.label);
+        console.log("puck url", url);
         return this.http
-            .put(url, JSON.stringify(hero), { headers: this.headers })
+            .put(url, bodyString, options)
             .toPromise()
-            .then(function () { return hero; })
+            .then(function () { return console.log("returned puck", puck); })
             .catch(this.handleError);
     };
     HeroService.prototype.handleError = function (error) {
@@ -58,15 +92,9 @@ var HeroService = (function () {
     };
     HeroService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [http_1.Http])
     ], HeroService);
     return HeroService;
-    var _a;
 }());
 exports.HeroService = HeroService;
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/ 
 //# sourceMappingURL=hero.service.js.map

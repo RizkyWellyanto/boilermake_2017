@@ -31,15 +31,17 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit(): void {
       this.route.params
-          .switchMap((params: Params) => this.heroService.getPuck(+params['id']))
+          // .switchMap((params: Params) => this.heroService.getPuck(+params[String('pid')]))
+          /* Check out why this works with id instead of pid */
+          .switchMap((params: Params) => this.heroService.getPuck(String(+params['id'])))
           // .subscribe(puck => console.log("init puck", this.puck = puck));
-          .subscribe(puck => console.log("init puck", this.puck = puck[0]));
+          .subscribe(puck => this.puck = puck[0]);
   }
 
-  // save(): void {
-  //   this.heroService.update(this.hero)
-  //     .then(() => this.goBack());
-  // }
+  save(): void {
+    this.heroService.update(this.puck)
+      .then(() => this.goBack());
+  }
 
   goBack(): void {
     this.location.back();

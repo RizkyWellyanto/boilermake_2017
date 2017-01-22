@@ -1,7 +1,9 @@
 <div *ngIf="puck">
   <h2>Details of Puck #{{puck.pid}} </h2>
   <div>
-      <label>Label: </label>{{puck.label}}
+      <label>Label: </label>{{puck.label}} <br>
+      <input [(ngModel)]="puck.label" placeholder="name" />
   </div>
   <button (click)="goBack()">Back</button>
+  <button (click)="save()">Save</button>
 </div>

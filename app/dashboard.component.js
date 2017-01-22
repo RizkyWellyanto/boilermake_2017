@@ -14,11 +14,14 @@ var DashboardComponent = (function () {
     function DashboardComponent(heroService) {
         this.heroService = heroService;
         this.heroes = [];
+        this.pucks = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.heroService.getHeroes()
-            .then(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
+        // this.heroService.getHeroes()
+        //   .then(heroes => this.heroes = heroes.slice(1, 5));
+        this.heroService.getPucks()
+            .then(function (pucks) { return _this.pucks = pucks; });
     };
     DashboardComponent = __decorate([
         core_1.Component({
@@ -32,9 +35,4 @@ var DashboardComponent = (function () {
     return DashboardComponent;
 }());
 exports.DashboardComponent = DashboardComponent;
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/ 
 //# sourceMappingURL=dashboard.component.js.map

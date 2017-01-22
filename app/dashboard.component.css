@@ -1,7 +1,7 @@
 [class*='col-'] {
-  float: left;
-  padding-right: 20px;
-  padding-bottom: 20px;
+  /* float: left; */
+  /* padding-right: 20px; */
+  /* padding-bottom: 155px; */
 }
 [class*='col-']:last-of-type {
   padding-right: 0;
@@ -28,6 +28,7 @@ h4 {
 }
 .module {
   padding: 20px;
+  /* margin: 20px; */
   text-align: center;
   color: #eee;
   max-height: 120px;
@@ -41,7 +42,8 @@ h4 {
   color: #607d8b;
 }
 .grid-pad {
-  padding: 10px 0;
+  padding: 2% 41%;
+  margin: 0% 0% 0% 0%;
   /* width: 70%; */
   /* margin: 0 auto; */
   /* margin-left: auto; */
@@ -70,4 +72,8 @@ table.center{
     /* width: 100%; */
     margin-left: auto;
     margin-right: auto;
+}
+
+module.hero{
+    margin: 0% 0% 40% 0%;
 }

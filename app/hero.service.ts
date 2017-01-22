@@ -1,5 +1,5 @@
 import { Injectable }    from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -13,7 +13,7 @@ export class HeroService {
   private pucksUrl = 'api/puck';  // URL to web api
 
   /*This would not work if the in memory api is not enabled */
-  // private heroesUrl = 'api/heroes';  // URL to web api
+  private heroesUrl = 'api/heroes';  // URL to web api
 
   constructor(private http: Http) { }
 
@@ -35,7 +35,7 @@ export class HeroService {
   }
 
   getPuck(pid: string): Promise<Puck> {
-      console.log("pid: ", pid);
+      console.log("pid getPuck: ", pid);
       const url = `${this.pucksUrl}/${pid}`;
       return this.http.get(url)
                  .toPromise()
@@ -68,12 +68,32 @@ export class HeroService {
       .catch(this.handleError);
   }
 
-  update(hero: Hero): Promise<Hero> {
-    const url = `${this.heroesUrl}/${hero.id}`;
+  // update(hero: Hero): Promise<Hero> {
+  //   const url = `${this.heroesUrl}/${hero.id}`;
+  //   return this.http
+  //     .put(url, JSON.stringify(hero), {headers: this.headers})
+  //     .toPromise()
+  //     .then(() => hero)
+  //     .catch(this.handleError);
+  // }
+
+  update(puck: Puck): Promise<Puck> {
+    /* Create new headers and encode them */
+    // let headers = new headers;
+    // headers.append('Content-Type', 'application/json');
+    let bodyString    = JSON.stringify({"label": puck.label});
+    let updateHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options       = new RequestOptions({headers: updateHeaders});
+
+    const url = `${this.pucksUrl}/${puck.pid}`;
+    console.log("puck.label in update", puck.label);
+    console.log("puck url", url);
+
     return this.http
-      .put(url, JSON.stringify(hero), {headers: this.headers})
+      .put(url, bodyString, options)
       .toPromise()
-      .then(() => hero)
+      .then(() => console.log("returned puck", puck))
+      // .then(() => this.puck = puck)
       .catch(this.handleError);
   }
 
