@@ -1,0 +1,8 @@
+SayLocationIntent where is {Object}
+SayLocationIntent where is my {Object}
+SayLocationIntent where is the {Object}
+SayLocationIntent where's {Object}
+SayLocationIntent where's my {Object}
+SayLocationIntent where can I find {Object}
+SayLocationIntent where can I get {Object}
+SayLocationIntent where to find {Object}

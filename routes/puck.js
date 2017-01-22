@@ -64,15 +64,15 @@ module.exports = function (router) {
             });
         })
         .put(function(req, res){
-            Puck.getPuckById(req.params.pid, function (err, puck) {
-                if (err || !puck) {
+            Puck.getPuckById(req.params.pid, function (err, data) {
+                if (err || data.length === 0) {
                     res.status(404);
                     res.send({
                         'message': 'Unable to find puck'
                     });
                     return;
                 }
-                Puck.setPuckLabel(puck, req.body.label, function (err, puck) {
+                Puck.setPuckLabel(data[0], req.body.label, function (err, puck) {
                     res.status(200);
                     res.send({
                         'message':'Puck updated',

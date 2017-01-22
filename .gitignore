@@ -1,2 +1,2 @@
-website_files/node_modules/
-website_files/secrets.js
+./node_modules
+node_modules/*

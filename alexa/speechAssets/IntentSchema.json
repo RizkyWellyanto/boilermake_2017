@@ -1,0 +1,22 @@
+{
+  "intents": [
+    {
+      "intent": "SayLocationIntent",
+      "slots": [
+        {
+          "name": "Object",
+          "type": "OBJECTS"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}
