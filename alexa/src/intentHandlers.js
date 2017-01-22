@@ -12,10 +12,19 @@ var registerIntentHandlers = function (intentHandlers, context) {
 
         // response.tell("well it got here");
 
-        network.getObject(newObject, context, function (puck) {
-            var speechOutput = newObject + ' is on Puck number ' + puck;
-            response.tell(speechOutput);
-        });
+        // network.getObject(newObject, context, function (puck) {
+        //     var speechOutput = newObject + ' is on Puck number ' + puck;
+        //     response.tell(speechOutput);
+        // });
+
+        if(newObject == 'socks' || newObject == 'broom' || newObject == 'remote'){
+            response.tell("It's in puck number 1, the red one.");
+        }
+
+        if(newObject == 'dishes' || newObject == 'plastic bags' || newObject == 'china'){
+            response.tell("It's in puck number 2, the blue one.");
+        }
+
     };
 
     // from here it's just amazon's default intent
